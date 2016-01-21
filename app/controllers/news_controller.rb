@@ -6,7 +6,7 @@ class NewsController < ApplicationController
     stories = news_api.get_stories(page, {numericFilters: 'points>500'})
     @stories = []
     stories.each do |item|
-      @stories << News.new(item["title"], item["url"], item["author"], item["points"], item["create_at"])
+      @stories << News.new(item["title"], item["url"], item["author"], item["points"], item["created_at"])
     end
   end
 end

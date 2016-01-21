@@ -1,4 +1,4 @@
-<table>
+<table class="table">
   <tr>
   <th>Date of Creation</th>
   <th>Title</th>
@@ -8,7 +8,7 @@
   </tr>
   <% @stories.each do |story| %>
   <tr>
-    <td><%= story.created_at %></td>
+    <td><%= story.created_at_f %></td>
     <td><%= story.title %></td>
     <td><%= story.author %></td>
     <td><%= story.points %></td>
