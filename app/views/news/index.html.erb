@@ -1,0 +1,18 @@
+<table>
+  <tr>
+  <th>Date of Creation</th>
+  <th>Title</th>
+  <th>Author</th>
+  <th>Points</th>
+  <th>Link</th>
+  </tr>
+  <% @stories.each do |story| %>
+  <tr>
+    <td><%= story.created_at %></td>
+    <td><%= story.title %></td>
+    <td><%= story.author %></td>
+    <td><%= story.points %></td>
+    <td><a href="<%= story.url %>" target="_blank"><%= story.url %></a></td>
+</tr>
+<% end %>
+</table>

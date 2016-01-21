@@ -11,28 +11,28 @@ class NewsAPI
   def initialize
   end
 
-  def get_stories options_={}
-    stories = []
+  def get_stories page_=1, options_={}
     uri = URI(BASE_URL)
     query = options_[:query] || DEFAUL[:query]
     searchables = options_[:restrictSearchableAttributes] || DEFAUL[:restrictSearchableAttributes]
     tags = options_[:tags] || DEFAUL[:tags]
     numberic_filters = options_[:numericFilters] || DEFAUL[:numericFilters]
-    page = options_[:page] || 1
     params = { 
       query: query,
       restrictSearchableAttributes: searchables, 
       tags: tags,
-      numericFilters: 'points>1000', 
-      page: page
+      numericFilters: numberic_filters, 
+      page: page_
     }
     uri.query = URI.encode_www_form(params)
 
-    res = Net::HTTP.get_response(uri)
-    if res.is_a?(Net::HTTPSuccess)
-      stories = JSON.parse(res.body)
+    resp = Net::HTTP.get_response(uri)
+    if resp.is_a?(Net::HTTPSuccess)
+      resp_obj = JSON.parse(resp.body)
+      return resp_obj['hits']
+    else
+      return []
     end
-    stories
   end
 
 end
