@@ -6,7 +6,7 @@ class NewsController < ApplicationController
     # Allow change parameter from url
     options = {}
     %i[query restrictSearchableAttributes tags numericFilters hitsPerPage].each do |key|
-      options[key] = params[key]
+      options[key] = params[key] unless params[key].blank?
     end
     stories = news_api.get_stories(page, options)
     @stories = []
@@ -18,6 +18,9 @@ class NewsController < ApplicationController
 
    @num_of_pages = stories["nbPages"].to_i
    @page = stories["page"].to_i
-    
+   @options_str = ""
+   options.each do |k,v|
+     @options_str = "#{@options_str}#{k}=#{v}&"
+   end
   end
 end

@@ -17,10 +17,9 @@
 <% end %>
 </table>
 <ul class="pagination">
-  <!-- TODO: follow customized criteria for pagintion -->
   <% (1..@num_of_pages-1).each do |i| %>
     <li <% if i == @page %>class="disabled"<% end %>>
-    <a href="/?page=<%= i %>" ><%= i %></a>
+    <a href="/?<%= @options_str %>page=<%= i %>" ><%= i %></a>
   </li>
 <% end %>
 </ul>
