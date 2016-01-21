@@ -24,9 +24,10 @@ describe NewsAPI do
   it "get list of hack news stories match pre-defined criteria" do
     news_api = NewsAPI.new
 
-    stories = news_api.get_stories
-    expect(stories).to be_a(Array)
+    resp = news_api.get_stories
+    expect(resp).to be_a(Hash)
 
+    stories = resp["hits"]
     stories.each do |story|
       expect(story["url"]).to match(/github/)
       expect(story["points"]).to be > 1000

@@ -6,6 +6,7 @@ class NewsAPI
     restrictSearchableAttributes: 'url', 
     tags: 'story',
     numericFilters: 'points>1000', 
+    hitsPerPage: 10, 
   }
 
   def initialize
@@ -17,21 +18,23 @@ class NewsAPI
     searchables = options_[:restrictSearchableAttributes] || DEFAUL[:restrictSearchableAttributes]
     tags = options_[:tags] || DEFAUL[:tags]
     numberic_filters = options_[:numericFilters] || DEFAUL[:numericFilters]
+    per_page = options_[:hitsPerPage] || DEFAUL[:hitsPerPage]
     params = { 
       query: query,
       restrictSearchableAttributes: searchables, 
       tags: tags,
       numericFilters: numberic_filters, 
-      page: page_
+      page: page_,
+      hitsPerPage: per_page, 
     }
     uri.query = URI.encode_www_form(params)
 
     resp = Net::HTTP.get_response(uri)
     if resp.is_a?(Net::HTTPSuccess)
       resp_obj = JSON.parse(resp.body)
-      return resp_obj['hits']
+      return resp_obj
     else
-      return []
+      return {}
     end
   end
 
